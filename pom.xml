@@ -5,6 +5,13 @@
   <version>0.0.1-SNAPSHOT</version>
   
   <repositories>
+    <!-- Maven Central debe ir primero -->
+    <repository>
+      <id>central</id>
+      <name>Maven Central</name>
+      <url>https://repo1.maven.org/maven2</url>
+    </repository>
+    
     <repository>
       <id>spring-releases</id>
       <name>Spring Maven RELEASE Repository</name>
@@ -19,13 +26,6 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-    
-    <!-- Repositorio de Maven Central como respaldo -->
-    <repository>
-      <id>central</id>
-      <name>Maven Central</name>
-      <url>https://repo1.maven.org/maven2</url>
-    </repository>
   </repositories>
      
   <properties>
@@ -39,12 +39,29 @@
          <groupId>org.springframework</groupId>
          <artifactId>spring-core</artifactId>
          <version>${spring.version}</version>
+         <exclusions>
+           <exclusion>
+             <groupId>commons-logging</groupId>
+             <artifactId>commons-logging</artifactId>
+           </exclusion>
+         </exclusions>
      </dependency>
              
      <dependency>
          <groupId>org.springframework</groupId>
          <artifactId>spring-context</artifactId>
          <version>${spring.version}</version>
+         <exclusions>
+           <!-- Excluir dependencias de SpringSource que ya no existen -->
+           <exclusion>
+             <groupId>org.hibernate</groupId>
+             <artifactId>com.springsource.org.hibernate.validator</artifactId>
+           </exclusion>
+           <exclusion>
+             <groupId>javax.inject</groupId>
+             <artifactId>com.springsource.javax.inject</artifactId>
+           </exclusion>
+         </exclusions>
      </dependency>    
         
      <dependency>
@@ -63,6 +80,10 @@
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.core</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>org.hibernate</groupId>
+            <artifactId>com.springsource.org.hibernate</artifactId>
+          </exclusion>
         </exclusions>
      </dependency>
      
@@ -77,6 +98,20 @@
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
         <version>4.1.8.Final</version>
+     </dependency>
+     
+     <!-- Agregar Hibernate Validator manualmente si es necesario -->
+     <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>4.2.0.Final</version>
+     </dependency>
+     
+     <!-- Agregar javax.inject manualmente -->
+     <dependency>
+        <groupId>javax.inject</groupId>
+        <artifactId>javax.inject</artifactId>
+        <version>1</version>
      </dependency>
      
       <!-- Tomcat DBCP -->
