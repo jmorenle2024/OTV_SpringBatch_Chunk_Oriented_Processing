@@ -32,6 +32,11 @@ jobs:
 
       - name: Download dependencies
         run: |
+          rm -rf ~/.m2/repository/org/springframework
+          rm -rf ~/.m2/repository/org/hibernate
+
+          # Limpia el proyecto
+          mvn clean
           mvn -B dependency:go-offline
 
   run:
