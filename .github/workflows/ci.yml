@@ -29,7 +29,7 @@ jobs:
 
       - name: Download dependencies
         run: |
-          mvn -B -s settings.xml dependency:go-offline
+          mvn -B dependency:go-offline
 
   run:
     needs: prepare
