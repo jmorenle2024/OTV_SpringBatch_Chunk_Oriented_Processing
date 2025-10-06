@@ -5,32 +5,21 @@
   <version>0.0.1-SNAPSHOT</version>
   
   <repositories>
-    <!-- Maven Central debe ir primero -->
+    <!-- Solo Maven Central -->
     <repository>
       <id>central</id>
       <name>Maven Central</name>
       <url>https://repo1.maven.org/maven2</url>
-    </repository>
-    
-    <repository>
-      <id>spring-releases</id>
-      <name>Spring Maven RELEASE Repository</name>
-      <url>https://repo.spring.io/release</url>
-    </repository>
-
-    <repository>
-      <id>spring-snapshots</id>
-      <name>Spring Maven Snapshot Repository</name>
-      <url>https://repo.spring.io/snapshot</url>
-      <snapshots>
+      <releases>
         <enabled>true</enabled>
-      </snapshots>
+      </releases>
     </repository>
   </repositories>
      
   <properties>
       <spring.version>3.1.3.RELEASE</spring.version>
       <spring-batch.version>2.1.9.RELEASE</spring-batch.version>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
   <dependencies>
@@ -52,14 +41,10 @@
          <artifactId>spring-context</artifactId>
          <version>${spring.version}</version>
          <exclusions>
-           <!-- Excluir dependencias de SpringSource que ya no existen -->
+           <!-- Excluir TODAS las dependencias opcionales/transitivas problemáticas -->
            <exclusion>
-             <groupId>org.hibernate</groupId>
-             <artifactId>com.springsource.org.hibernate.validator</artifactId>
-           </exclusion>
-           <exclusion>
-             <groupId>javax.inject</groupId>
-             <artifactId>com.springsource.javax.inject</artifactId>
+             <groupId>*</groupId>
+             <artifactId>*</artifactId>
            </exclusion>
          </exclusions>
      </dependency>    
@@ -69,27 +54,52 @@
         <artifactId>spring-tx</artifactId>
         <version>${spring.version}</version>
      </dependency>
+     
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
+     
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
+     
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-expression</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
            
      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-orm</artifactId>
         <version>${spring.version}</version>
         <exclusions>
-          <!-- Excluir dependencias problemáticas de Eclipse Persistence -->
           <exclusion>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.core</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.hibernate</groupId>
-            <artifactId>com.springsource.org.hibernate</artifactId>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
           </exclusion>
         </exclusions>
      </dependency>
      
      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
+     
+     <dependency>
         <groupId>org.springframework.batch</groupId>
         <artifactId>spring-batch-core</artifactId>
+        <version>${spring-batch.version}</version>
+     </dependency>
+     
+     <dependency>
+        <groupId>org.springframework.batch</groupId>
+        <artifactId>spring-batch-infrastructure</artifactId>
         <version>${spring-batch.version}</version>
      </dependency>
          
@@ -100,18 +110,23 @@
         <version>4.1.8.Final</version>
      </dependency>
      
-     <!-- Agregar Hibernate Validator manualmente si es necesario -->
      <dependency>
         <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-validator</artifactId>
-        <version>4.2.0.Final</version>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>4.1.8.Final</version>
      </dependency>
      
-     <!-- Agregar javax.inject manualmente -->
+     <!-- Agregar dependencias necesarias manualmente -->
      <dependency>
-        <groupId>javax.inject</groupId>
-        <artifactId>javax.inject</artifactId>
-        <version>1</version>
+        <groupId>aopalliance</groupId>
+        <artifactId>aopalliance</artifactId>
+        <version>1.0</version>
+     </dependency>
+     
+     <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.1.1</version>
      </dependency>
      
       <!-- Tomcat DBCP -->
